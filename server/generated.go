@@ -81,12 +81,12 @@ type PostResolver interface {
 	Author(ctx context.Context, obj *prisma.Post) (*prisma.User, error)
 }
 type QueryResolver interface {
-	PublishedPosts(ctx context.Context) ([]prisma.Post, error)
+	PublishedPosts(ctx context.Context) ([]*prisma.Post, error)
 	Post(ctx context.Context, postID string) (*prisma.Post, error)
-	PostsByUser(ctx context.Context, userID string) ([]prisma.Post, error)
+	PostsByUser(ctx context.Context, userID string) ([]*prisma.Post, error)
 }
 type UserResolver interface {
-	Posts(ctx context.Context, obj *prisma.User) ([]prisma.Post, error)
+	Posts(ctx context.Context, obj *prisma.User) ([]*prisma.Post, error)
 }
 
 type executableSchema struct {

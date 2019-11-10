@@ -988,8 +988,8 @@ type PostExecArray struct {
 	exec *prisma.Exec
 }
 
-func (instance PostExecArray) Exec(ctx context.Context) ([]Post, error) {
-	var v []Post
+func (instance PostExecArray) Exec(ctx context.Context) ([]*Post, error) {
+	var v []*Post
 	err := instance.exec.ExecArray(ctx, &v)
 	return v, err
 }

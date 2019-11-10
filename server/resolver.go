@@ -57,7 +57,7 @@ func (r *postResolver) Author(ctx context.Context, obj *prisma.Post) (*prisma.Us
 
 type queryResolver struct{ *Resolver }
 
-func (r *queryResolver) PublishedPosts(ctx context.Context) ([]prisma.Post, error) { // output is []*
+func (r *queryResolver) PublishedPosts(ctx context.Context) ([]*prisma.Post, error) { // output is []*
 	published := true
 	return r.Prisma.Posts(&prisma.PostsParams{ // function returns []
 		Where: &prisma.PostWhereInput{Published: &published},
@@ -66,7 +66,7 @@ func (r *queryResolver) PublishedPosts(ctx context.Context) ([]prisma.Post, erro
 func (r *queryResolver) Post(ctx context.Context, postID string) (*prisma.Post, error) {
 	return r.Prisma.Post(prisma.PostWhereUniqueInput{ID: &postID}).Exec(ctx)
 }
-func (r *queryResolver) PostsByUser(ctx context.Context, userID string) ([]prisma.Post, error) {
+func (r *queryResolver) PostsByUser(ctx context.Context, userID string) ([]*prisma.Post, error) {
 	return r.Prisma.Posts(&prisma.PostsParams{
 		Where: &prisma.PostWhereInput{
 			Author: &prisma.UserWhereInput{
@@ -77,6 +77,6 @@ func (r *queryResolver) PostsByUser(ctx context.Context, userID string) ([]prism
 
 type userResolver struct{ *Resolver }
 
-func (r *userResolver) Posts(ctx context.Context, obj *prisma.User) ([]prisma.Post, error) {
+func (r *userResolver) Posts(ctx context.Context, obj *prisma.User) ([]*prisma.Post, error) {
 	return r.Prisma.User(prisma.UserWhereUniqueInput{ID: &obj.ID}).Posts(nil).Exec(ctx)
 }
